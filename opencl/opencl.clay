@@ -1,0 +1,347 @@
+public import opencl.generated.*;
+
+/* Error Codes */
+alias CL_SUCCESS =                                  0;
+alias CL_DEVICE_NOT_FOUND =                         -1;
+alias CL_DEVICE_NOT_AVAILABLE =                     -2;
+alias CL_COMPILER_NOT_AVAILABLE =                   -3;
+alias CL_MEM_OBJECT_ALLOCATION_FAILURE =            -4;
+alias CL_OUT_OF_RESOURCES =                         -5;
+alias CL_OUT_OF_HOST_MEMORY =                       -6;
+alias CL_PROFILING_INFO_NOT_AVAILABLE =             -7;
+alias CL_MEM_COPY_OVERLAP =                         -8;
+alias CL_IMAGE_FORMAT_MISMATCH =                    -9;
+alias CL_IMAGE_FORMAT_NOT_SUPPORTED =               -10;
+alias CL_BUILD_PROGRAM_FAILURE =                    -11;
+alias CL_MAP_FAILURE =                              -12;
+alias CL_MISALIGNED_SUB_BUFFER_OFFSET =             -13;
+alias CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST = -14;
+
+alias CL_INVALID_VALUE =                            -30;
+alias CL_INVALID_DEVICE_TYPE =                      -31;
+alias CL_INVALID_PLATFORM =                         -32;
+alias CL_INVALID_DEVICE =                           -33;
+alias CL_INVALID_CONTEXT =                          -34;
+alias CL_INVALID_QUEUE_PROPERTIES =                 -35;
+alias CL_INVALID_COMMAND_QUEUE =                    -36;
+alias CL_INVALID_HOST_PTR =                         -37;
+alias CL_INVALID_MEM_OBJECT =                       -38;
+alias CL_INVALID_IMAGE_FORMAT_DESCRIPTOR =          -39;
+alias CL_INVALID_IMAGE_SIZE =                       -40;
+alias CL_INVALID_SAMPLER =                          -41;
+alias CL_INVALID_BINARY =                           -42;
+alias CL_INVALID_BUILD_OPTIONS =                    -43;
+alias CL_INVALID_PROGRAM =                          -44;
+alias CL_INVALID_PROGRAM_EXECUTABLE =               -45;
+alias CL_INVALID_KERNEL_NAME =                      -46;
+alias CL_INVALID_KERNEL_DEFINITION =                -47;
+alias CL_INVALID_KERNEL =                           -48;
+alias CL_INVALID_ARG_INDEX =                        -49;
+alias CL_INVALID_ARG_VALUE =                        -50;
+alias CL_INVALID_ARG_SIZE =                         -51;
+alias CL_INVALID_KERNEL_ARGS =                      -52;
+alias CL_INVALID_WORK_DIMENSION =                   -53;
+alias CL_INVALID_WORK_GROUP_SIZE =                  -54;
+alias CL_INVALID_WORK_ITEM_SIZE =                   -55;
+alias CL_INVALID_GLOBAL_OFFSET =                    -56;
+alias CL_INVALID_EVENT_WAIT_LIST =                  -57;
+alias CL_INVALID_EVENT =                            -58;
+alias CL_INVALID_OPERATION =                        -59;
+alias CL_INVALID_GL_OBJECT =                        -60;
+alias CL_INVALID_BUFFER_SIZE =                      -61;
+alias CL_INVALID_MIP_LEVEL =                        -62;
+alias CL_INVALID_GLOBAL_WORK_SIZE =                 -63;
+alias CL_INVALID_PROPERTY =                         -64;
+
+/* OpenCL Version */
+alias CL_VERSION_1_0 =                              1;
+alias CL_VERSION_1_1 =                              1;
+
+/* cl_bool */
+alias CL_FALSE =                                    cl_bool(0);
+alias CL_TRUE =                                     cl_bool(1);
+
+/* cl_platform_info */
+alias CL_PLATFORM_PROFILE =                         0x0900;
+alias CL_PLATFORM_VERSION =                         0x0901;
+alias CL_PLATFORM_NAME =                            0x0902;
+alias CL_PLATFORM_VENDOR =                          0x0903;
+alias CL_PLATFORM_EXTENSIONS =                      0x0904;
+
+/* cl_device_type - bitfield */
+alias CL_DEVICE_TYPE_DEFAULT =                      cl_device_type(bitshl(1, 0));
+alias CL_DEVICE_TYPE_CPU =                          cl_device_type(bitshl(1, 1));
+alias CL_DEVICE_TYPE_GPU =                          cl_device_type(bitshl(1, 2));
+alias CL_DEVICE_TYPE_ACCELERATOR =                  cl_device_type(bitshl(1, 3));
+alias CL_DEVICE_TYPE_ALL =                          cl_device_type(0xFFFFFFFF);
+
+/* cl_device_info */
+alias CL_DEVICE_TYPE =                              0x1000;
+alias CL_DEVICE_VENDOR_ID =                         0x1001;
+alias CL_DEVICE_MAX_COMPUTE_UNITS =                 0x1002;
+alias CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS =          0x1003;
+alias CL_DEVICE_MAX_WORK_GROUP_SIZE =               0x1004;
+alias CL_DEVICE_MAX_WORK_ITEM_SIZES =               0x1005;
+alias CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR =       0x1006;
+alias CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT =      0x1007;
+alias CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT =        0x1008;
+alias CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG =       0x1009;
+alias CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT =      0x100A;
+alias CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE =     0x100B;
+alias CL_DEVICE_MAX_CLOCK_FREQUENCY =               0x100C;
+alias CL_DEVICE_ADDRESS_BITS =                      0x100D;
+alias CL_DEVICE_MAX_READ_IMAGE_ARGS =               0x100E;
+alias CL_DEVICE_MAX_WRITE_IMAGE_ARGS =              0x100F;
+alias CL_DEVICE_MAX_MEM_ALLOC_SIZE =                0x1010;
+alias CL_DEVICE_IMAGE2D_MAX_WIDTH =                 0x1011;
+alias CL_DEVICE_IMAGE2D_MAX_HEIGHT =                0x1012;
+alias CL_DEVICE_IMAGE3D_MAX_WIDTH =                 0x1013;
+alias CL_DEVICE_IMAGE3D_MAX_HEIGHT =                0x1014;
+alias CL_DEVICE_IMAGE3D_MAX_DEPTH =                 0x1015;
+alias CL_DEVICE_IMAGE_SUPPORT =                     0x1016;
+alias CL_DEVICE_MAX_PARAMETER_SIZE =                0x1017;
+alias CL_DEVICE_MAX_SAMPLERS =                      0x1018;
+alias CL_DEVICE_MEM_BASE_ADDR_ALIGN =               0x1019;
+alias CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE =          0x101A;
+alias CL_DEVICE_SINGLE_FP_CONFIG =                  0x101B;
+alias CL_DEVICE_GLOBAL_MEM_CACHE_TYPE =             0x101C;
+alias CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE =         0x101D;
+alias CL_DEVICE_GLOBAL_MEM_CACHE_SIZE =             0x101E;
+alias CL_DEVICE_GLOBAL_MEM_SIZE =                   0x101F;
+alias CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE =          0x1020;
+alias CL_DEVICE_MAX_CONSTANT_ARGS =                 0x1021;
+alias CL_DEVICE_LOCAL_MEM_TYPE =                    0x1022;
+alias CL_DEVICE_LOCAL_MEM_SIZE =                    0x1023;
+alias CL_DEVICE_ERROR_CORRECTION_SUPPORT =          0x1024;
+alias CL_DEVICE_PROFILING_TIMER_RESOLUTION =        0x1025;
+alias CL_DEVICE_ENDIAN_LITTLE =                     0x1026;
+alias CL_DEVICE_AVAILABLE =                         0x1027;
+alias CL_DEVICE_COMPILER_AVAILABLE =                0x1028;
+alias CL_DEVICE_EXECUTION_CAPABILITIES =            0x1029;
+alias CL_DEVICE_QUEUE_PROPERTIES =                  0x102A;
+alias CL_DEVICE_NAME =                              0x102B;
+alias CL_DEVICE_VENDOR =                            0x102C;
+alias CL_DRIVER_VERSION =                           0x102D;
+alias CL_DEVICE_PROFILE =                           0x102E;
+alias CL_DEVICE_VERSION =                           0x102F;
+alias CL_DEVICE_EXTENSIONS =                        0x1030;
+alias CL_DEVICE_PLATFORM =                          0x1031;
+/* 0x1032 reserved for CL_DEVICE_DOUBLE_FP_CONFIG */
+/* 0x1033 reserved for CL_DEVICE_HALF_FP_CONFIG */
+alias CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF =       0x1034;
+alias CL_DEVICE_HOST_UNIFIED_MEMORY =               0x1035;
+alias CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR =          0x1036;
+alias CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT =         0x1037;
+alias CL_DEVICE_NATIVE_VECTOR_WIDTH_INT =           0x1038;
+alias CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG =          0x1039;
+alias CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT =         0x103A;
+alias CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE =        0x103B;
+alias CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF =          0x103C;
+alias CL_DEVICE_OPENCL_C_VERSION =                  0x103D;
+
+/* cl_device_fp_config - bitfield */
+alias CL_FP_DENORM =                                bitshl(1, 0);
+alias CL_FP_INF_NAN =                               bitshl(1, 1);
+alias CL_FP_ROUND_TO_NEAREST =                      bitshl(1, 2);
+alias CL_FP_ROUND_TO_ZERO =                         bitshl(1, 3);
+alias CL_FP_ROUND_TO_INF =                          bitshl(1, 4);
+alias CL_FP_FMA =                                   bitshl(1, 5);
+alias CL_FP_SOFT_FLOAT =                            bitshl(1, 6);
+
+/* cl_device_mem_cache_type */
+alias CL_NONE =                                     0x0;
+alias CL_READ_ONLY_CACHE =                          0x1;
+alias CL_READ_WRITE_CACHE =                         0x2;
+
+/* cl_device_local_mem_type */
+alias CL_LOCAL =                                    0x1;
+alias CL_GLOBAL =                                   0x2;
+
+/* cl_device_exec_capabilities - bitfield */
+alias CL_EXEC_KERNEL =                              bitshl(1, 0);
+alias CL_EXEC_NATIVE_KERNEL =                       bitshl(1, 1);
+
+/* cl_command_queue_properties - bitfield */
+alias CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE =      bitshl(1, 0);
+alias CL_QUEUE_PROFILING_ENABLE =                   bitshl(1, 1);
+
+/* cl_context_info  */
+alias CL_CONTEXT_REFERENCE_COUNT =                  0x1080;
+alias CL_CONTEXT_DEVICES =                          0x1081;
+alias CL_CONTEXT_PROPERTIES =                       0x1082;
+alias CL_CONTEXT_NUM_DEVICES =                      0x1083;
+
+/* cl_context_info + cl_context_properties */
+alias CL_CONTEXT_PLATFORM =                         cl_context_properties(0x1084);
+
+/* cl_command_queue_info */
+alias CL_QUEUE_CONTEXT =                            0x1090;
+alias CL_QUEUE_DEVICE =                             0x1091;
+alias CL_QUEUE_REFERENCE_COUNT =                    0x1092;
+alias CL_QUEUE_PROPERTIES =                         0x1093;
+
+/* cl_mem_flags - bitfield */
+alias CL_MEM_READ_WRITE =                           cl_mem_flags(bitshl(1, 0));
+alias CL_MEM_WRITE_ONLY =                           cl_mem_flags(bitshl(1, 1));
+alias CL_MEM_READ_ONLY =                            cl_mem_flags(bitshl(1, 2));
+alias CL_MEM_USE_HOST_PTR =                         cl_mem_flags(bitshl(1, 3));
+alias CL_MEM_ALLOC_HOST_PTR =                       cl_mem_flags(bitshl(1, 4));
+alias CL_MEM_COPY_HOST_PTR =                        cl_mem_flags(bitshl(1, 5));
+
+/* cl_channel_order */
+alias CL_R =                                        0x10B0;
+alias CL_A =                                        0x10B1;
+alias CL_RG =                                       0x10B2;
+alias CL_RA =                                       0x10B3;
+alias CL_RGB =                                      0x10B4;
+alias CL_RGBA =                                     0x10B5;
+alias CL_BGRA =                                     0x10B6;
+alias CL_ARGB =                                     0x10B7;
+alias CL_INTENSITY =                                0x10B8;
+alias CL_LUMINANCE =                                0x10B9;
+alias CL_Rx =                                       0x10BA;
+alias CL_RGx =                                      0x10BB;
+alias CL_RGBx =                                     0x10BC;
+
+/* cl_channel_type */
+alias CL_SNORM_INT8 =                               0x10D0;
+alias CL_SNORM_INT16 =                              0x10D1;
+alias CL_UNORM_INT8 =                               0x10D2;
+alias CL_UNORM_INT16 =                              0x10D3;
+alias CL_UNORM_SHORT_565 =                          0x10D4;
+alias CL_UNORM_SHORT_555 =                          0x10D5;
+alias CL_UNORM_INT_101010 =                         0x10D6;
+alias CL_SIGNED_INT8 =                              0x10D7;
+alias CL_SIGNED_INT16 =                             0x10D8;
+alias CL_SIGNED_INT32 =                             0x10D9;
+alias CL_UNSIGNED_INT8 =                            0x10DA;
+alias CL_UNSIGNED_INT16 =                           0x10DB;
+alias CL_UNSIGNED_INT32 =                           0x10DC;
+alias CL_HALF_FLOAT =                               0x10DD;
+alias CL_FLOAT =                                    0x10DE;
+
+/* cl_mem_object_type */
+alias CL_MEM_OBJECT_BUFFER =                        0x10F0;
+alias CL_MEM_OBJECT_IMAGE2D =                       0x10F1;
+alias CL_MEM_OBJECT_IMAGE3D =                       0x10F2;
+
+/* cl_mem_info */
+alias CL_MEM_TYPE =                                 0x1100;
+alias CL_MEM_FLAGS =                                0x1101;
+alias CL_MEM_SIZE =                                 0x1102;
+alias CL_MEM_HOST_PTR =                             0x1103;
+alias CL_MEM_MAP_COUNT =                            0x1104;
+alias CL_MEM_REFERENCE_COUNT =                      0x1105;
+alias CL_MEM_CONTEXT =                              0x1106;
+alias CL_MEM_ASSOCIATED_MEMOBJECT =                 0x1107;
+alias CL_MEM_OFFSET =                               0x1108;
+
+/* cl_image_info */
+alias CL_IMAGE_FORMAT =                             0x1110;
+alias CL_IMAGE_ELEMENT_SIZE =                       0x1111;
+alias CL_IMAGE_ROW_PITCH =                          0x1112;
+alias CL_IMAGE_SLICE_PITCH =                        0x1113;
+alias CL_IMAGE_WIDTH =                              0x1114;
+alias CL_IMAGE_HEIGHT =                             0x1115;
+alias CL_IMAGE_DEPTH =                              0x1116;
+
+/* cl_addressing_mode */
+alias CL_ADDRESS_NONE =                             0x1130;
+alias CL_ADDRESS_CLAMP_TO_EDGE =                    0x1131;
+alias CL_ADDRESS_CLAMP =                            0x1132;
+alias CL_ADDRESS_REPEAT =                           0x1133;
+alias CL_ADDRESS_MIRRORED_REPEAT =                  0x1134;
+
+/* cl_filter_mode */
+alias CL_FILTER_NEAREST =                           0x1140;
+alias CL_FILTER_LINEAR =                            0x1141;
+
+/* cl_sampler_info */
+alias CL_SAMPLER_REFERENCE_COUNT =                  0x1150;
+alias CL_SAMPLER_CONTEXT =                          0x1151;
+alias CL_SAMPLER_NORMALIZED_COORDS =                0x1152;
+alias CL_SAMPLER_ADDRESSING_MODE =                  0x1153;
+alias CL_SAMPLER_FILTER_MODE =                      0x1154;
+
+/* cl_map_flags - bitfield */
+alias CL_MAP_READ =                                 bitshl(1, 0);
+alias CL_MAP_WRITE =                                bitshl(1, 1);
+
+/* cl_program_info */
+alias CL_PROGRAM_REFERENCE_COUNT =                  0x1160;
+alias CL_PROGRAM_CONTEXT =                          0x1161;
+alias CL_PROGRAM_NUM_DEVICES =                      0x1162;
+alias CL_PROGRAM_DEVICES =                          0x1163;
+alias CL_PROGRAM_SOURCE =                           0x1164;
+alias CL_PROGRAM_BINARY_SIZES =                     0x1165;
+alias CL_PROGRAM_BINARIES =                         0x1166;
+
+/* cl_program_build_info */
+alias CL_PROGRAM_BUILD_STATUS =                     0x1181;
+alias CL_PROGRAM_BUILD_OPTIONS =                    0x1182;
+alias CL_PROGRAM_BUILD_LOG =                        0x1183;
+
+/* cl_build_status */
+alias CL_BUILD_SUCCESS =                            0;
+alias CL_BUILD_NONE =                               -1;
+alias CL_BUILD_ERROR =                              -2;
+alias CL_BUILD_IN_PROGRESS =                        -3;
+
+/* cl_kernel_info */
+alias CL_KERNEL_FUNCTION_NAME =                     0x1190;
+alias CL_KERNEL_NUM_ARGS =                          0x1191;
+alias CL_KERNEL_REFERENCE_COUNT =                   0x1192;
+alias CL_KERNEL_CONTEXT =                           0x1193;
+alias CL_KERNEL_PROGRAM =                           0x1194;
+
+/* cl_kernel_work_group_info */
+alias CL_KERNEL_WORK_GROUP_SIZE =                   0x11B0;
+alias CL_KERNEL_COMPILE_WORK_GROUP_SIZE =           0x11B1;
+alias CL_KERNEL_LOCAL_MEM_SIZE =                    0x11B2;
+alias CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE = 0x11B3;
+alias CL_KERNEL_PRIVATE_MEM_SIZE =                  0x11B4;
+
+/* cl_event_info  */
+alias CL_EVENT_COMMAND_QUEUE =                      0x11D0;
+alias CL_EVENT_COMMAND_TYPE =                       0x11D1;
+alias CL_EVENT_REFERENCE_COUNT =                    0x11D2;
+alias CL_EVENT_COMMAND_EXECUTION_STATUS =           0x11D3;
+alias CL_EVENT_CONTEXT =                            0x11D4;
+
+/* cl_command_type */
+alias CL_COMMAND_NDRANGE_KERNEL =                   0x11F0;
+alias CL_COMMAND_TASK =                             0x11F1;
+alias CL_COMMAND_NATIVE_KERNEL =                    0x11F2;
+alias CL_COMMAND_READ_BUFFER =                      0x11F3;
+alias CL_COMMAND_WRITE_BUFFER =                     0x11F4;
+alias CL_COMMAND_COPY_BUFFER =                      0x11F5;
+alias CL_COMMAND_READ_IMAGE =                       0x11F6;
+alias CL_COMMAND_WRITE_IMAGE =                      0x11F7;
+alias CL_COMMAND_COPY_IMAGE =                       0x11F8;
+alias CL_COMMAND_COPY_IMAGE_TO_BUFFER =             0x11F9;
+alias CL_COMMAND_COPY_BUFFER_TO_IMAGE =             0x11FA;
+alias CL_COMMAND_MAP_BUFFER =                       0x11FB;
+alias CL_COMMAND_MAP_IMAGE =                        0x11FC;
+alias CL_COMMAND_UNMAP_MEM_OBJECT =                 0x11FD;
+alias CL_COMMAND_MARKER =                           0x11FE;
+alias CL_COMMAND_ACQUIRE_GL_OBJECTS =               0x11FF;
+alias CL_COMMAND_RELEASE_GL_OBJECTS =               0x1200;
+alias CL_COMMAND_READ_BUFFER_RECT =                 0x1201;
+alias CL_COMMAND_WRITE_BUFFER_RECT =                0x1202;
+alias CL_COMMAND_COPY_BUFFER_RECT =                 0x1203;
+alias CL_COMMAND_USER =                             0x1204;
+
+/* command execution status */
+alias CL_COMPLETE =                                 0x0;
+alias CL_RUNNING =                                  0x1;
+alias CL_SUBMITTED =                                0x2;
+alias CL_QUEUED =                                   0x3;
+  
+/* cl_buffer_create_type  */
+alias CL_BUFFER_CREATE_TYPE_REGION =                0x1220;
+
+/* cl_profiling_info  */
+alias CL_PROFILING_COMMAND_QUEUED =                 0x1280;
+alias CL_PROFILING_COMMAND_SUBMIT =                 0x1281;
+alias CL_PROFILING_COMMAND_START =                  0x1282;
+alias CL_PROFILING_COMMAND_END =                    0x1283;
